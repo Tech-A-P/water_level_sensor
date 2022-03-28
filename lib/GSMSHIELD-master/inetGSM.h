@@ -1,4 +1,4 @@
-#define _INETGSM_H_
+#ifndef _INETGSM_H_
 #define _INETGSM_H_
 
 #define BUFFERSIZE 1
@@ -27,3 +27,5 @@ public:
   // This runs, yes
   // int tweet(const char* token, const char* msg);
 };
+
+#endif
