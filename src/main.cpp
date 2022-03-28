@@ -1,8 +1,8 @@
 #include "SIM900.h"
 #include <SoftwareSerial.h>
 #include "inetGSM.h"
-//#include "sms.h"
-//#include "call.h"
+#include "SerialRead.h"
+// #include "env.h"
 
 // To change pins for Software Serial, use the two lines in GSM.cpp.
 
@@ -16,57 +16,12 @@ InetGSM inet;
 // CallGSM call;
 // SMSGSM sms;
 
-char msg[50];
 int numdata;
-char inSerial[50];
-int i = 0;
 boolean started = false;
 long h = 20;
 
-void serialhwread()
-{
-  i = 0;
-  if (Serial.available() > 0)
-  {
-    while (Serial.available() > 0)
-    {
-      inSerial[i] = (Serial.read());
-      delay(10);
-      i++;
-    }
+String THINGSPEAK_API_KEY = "G44TANS8WMVAW8SH";
 
-    inSerial[i] = '\0';
-    if (!strcmp(inSerial, "/END"))
-    {
-      Serial.println("_");
-      inSerial[0] = 0x1a;
-      inSerial[1] = '\0';
-      gsm.SimpleWriteln(inSerial);
-    }
-    // Send a saved AT command using serial port.
-    if (!strcmp(inSerial, "TEST"))
-    {
-      Serial.println("SIGNAL QUALITY");
-      gsm.SimpleWriteln("AT+CSQ");
-    }
-    // Read last message saved.
-    if (!strcmp(inSerial, "MSG"))
-    {
-      Serial.println(msg);
-    }
-    else
-    {
-      Serial.println(inSerial);
-      gsm.SimpleWriteln(inSerial);
-    }
-    inSerial[0] = '\0';
-  }
-}
-
-void serialswread()
-{
-  gsm.SimpleRead();
-}
 
 void setup()
 {
@@ -114,12 +69,13 @@ void setup()
     inet.connectTCP("api.thingspeak.com", 80);
 
     Serial.println("tcp");
-    String str = "https://api.thingspeak.com/update?api_key=G44TANS8WMVAW8SH&field1=" + String(h);
-    Serial.println(str);
+    char const* uri0 = ("https://api.thingspeak.com/update?api_key=" + THINGSPEAK_API_KEY + "&field1=" + String(h)).c_str();
+    Serial.println(uri0);
     char response[200];
     // inet.println(str);//begin send data to remote server
 
-    inet.httpGET("http://api.thingspeak.com", 80, "/update?api_key=G44TANS8WMVAW8SH&field1=4", response, 200);
+    char const* uri1 = ("/update?api_key=" + THINGSPEAK_API_KEY + "&field1=4").c_str();
+    inet.httpGET("http://api.thingspeak.com", 80, uri1, response, 200);
   }
 };
 
