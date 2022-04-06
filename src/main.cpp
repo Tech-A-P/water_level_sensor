@@ -18,7 +18,7 @@ InetGSM inet;
 
 int numdata;
 boolean started = false;
-long h = 20;
+long h = 30;
 
 String THINGSPEAK_API_KEY = "G44TANS8WMVAW8SH";
 
