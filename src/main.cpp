@@ -16,6 +16,7 @@ InetGSM inet;
 // CallGSM call;
 // SMSGSM sms;
 
+char mesg[50];
 int numdata;
 boolean started = false;
 long h = 30;
@@ -58,24 +59,33 @@ void setup()
 
     // TCP Client GET, send a GET request to the server and
     // save the reply.
-    /*  numdata=inet.httpGET("api.thingspeak.com", 80, "/", msg, 50);
+
+        numdata=inet.httpGET("api.thingspeak.com", 80, "/update?api_key=G44TANS8WMVAW8SH&field1=9", mesg, 50);
         //Print the results.
         Serial.println("\nNumber of data received:");
         Serial.println(numdata);
         Serial.println("\nData received:");
-        Serial.println(msg);
-    */
+        Serial.println(mesg);
+    
+    
 
-    inet.connectTCP("api.thingspeak.com", 80);
+   // inet.connectTCP("api.thingspeak.com", 80);
 
-    Serial.println("tcp");
+  /* Serial.println("tcp");
     char const* uri0 = ("https://api.thingspeak.com/update?api_key=" + THINGSPEAK_API_KEY + "&field1=" + String(h)).c_str();
+    Serial.println("I am alive");
     Serial.println(uri0);
     char response[200];
     // inet.println(str);//begin send data to remote server
+    Serial.println("I am still alive");
 
     char const* uri1 = ("/update?api_key=" + THINGSPEAK_API_KEY + "&field1=4").c_str();
+    Serial.println("Am I immortal?!");
+    Serial.println(uri1);
     inet.httpGET("http://api.thingspeak.com", 80, uri1, response, 200);
+    Serial.println(response);
+    Serial.println("Zio Pippo");
+  */  
   }
 };
 
