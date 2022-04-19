@@ -60,7 +60,7 @@ void setup()
     // TCP Client GET, send a GET request to the server and
     // save the reply.
 
-        numdata=inet.httpGET("api.thingspeak.com", 80, "/update?api_key=G44TANS8WMVAW8SH&field1=9", mesg, 50);
+        numdata=inet.httpGET("api.thingspeak.com", 80, "/update?api_key=G44TANS8WMVAW8SH&field1=15", mesg, 50);
         //Print the results.
         Serial.println("\nNumber of data received:");
         Serial.println(numdata);
