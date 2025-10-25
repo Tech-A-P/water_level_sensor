@@ -1,7 +1,7 @@
 /*
 authors: Pietro Mascherpa, Fabio Brandalese, Roberto Garza 
 contact: roberto.garza@uni-konstanz.de
-copyright: ??? iDEPOT
+copyright: CC BY-NC-SA 4.0
 date current version: 2024.09.15 (YYYY/MM/DD)
 backend: ThingSpeak
 
