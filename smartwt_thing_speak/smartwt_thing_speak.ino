@@ -23,8 +23,6 @@ Check the paper for instructions about the hardware component of the system.
 
 InetGSM inet;
 
-// TODO: try to optimize data structures to save memory
-
 // constants for data communication
 const bool debug = false;
 const char* SIM_APN = "YOUR_APN";
@@ -55,7 +53,7 @@ const float height_zero = 20;       // height of the detector from the ground
 float measure_offset = 2.6;         // measuring measure_offset of the sensor | TODO-USER: set as distance between the surface of the sensor and the edge of the box (Fig. 1)
 float correction_factor = 1.028;   // correct for distance of the target from sensor
 
-//dichiarazione variabili per CONTROLLO FINALE invio
+//variables for final control
 int number_attempt_send = 0;        // number of attempts to measure and send the data
 String status = "";                 // communication status
 
