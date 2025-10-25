@@ -1,7 +1,7 @@
 /*
 authors: Pietro Mascherpa, Fabio Brandalese, Roberto Garza 
 contact: roberto.garza@uni-konstanz.de
-copyright: ??? iDEPOT
+copyright: CC BY-NC-SA 4.0
 date current version: 2024.09.15 (YYYY/MM/DD)
 backend: ThingSpeak
 
@@ -27,7 +27,7 @@ InetGSM inet;
 
 // constants for data communication
 const bool debug = false;
-const String THINGSPEAK_USERNAME = "YOUR_USERNAME";
+const char* SIM_APN = "YOUR_APN";
 const String THINGSPEAK_API_KEY = "YOUR_API_KEY";
 const char* THINGSPEAK_ENDPOINT_ROOT = "api.thingspeak.com";
 const String THINGSPEAK_FIELD_NUMBER = "3";      // ThingSpeak field index for the water level value
@@ -53,7 +53,7 @@ float distance_median;              // median measure [cm]
 float distance;                     // median distance corrected and ready to send [cm]
 const float height_zero = 20;       // height of the detector from the ground
 float measure_offset = 2.6;         // measuring measure_offset of the sensor | TODO-USER: set as distance between the surface of the sensor and the edge of the box (Fig. 1)
-float correction_factor = 0.9694;   // correct for distance of the target from sensor (decrease measure by 3,06%)
+float correction_factor = 1.028;   // correct for distance of the target from sensor
 
 //dichiarazione variabili per CONTROLLO FINALE invio
 int number_attempt_send = 0;        // number of attempts to measure and send the data
@@ -188,7 +188,7 @@ void setComShield() {
 // ??? why all these delays?
 void sendData() {
   // sanity check
-  if (inet.attachGPRS("iot.1nce.net", "", "")) {
+  if (inet.attachGPRS(SIM_APN, "", "")) {
     Serial.println("status=ATTACHED");
   } else {
     Serial.println("status=ERROR");
