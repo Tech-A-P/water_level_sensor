@@ -74,9 +74,9 @@ float correction_factor = 1.028;   // correct for distance of the target from se
 //dichiarazione variabili CONTROLLO TENSIONE
 float Volt;                         // variabile per monitorare la Volt della batteria
 int AnalogBatt;                     // variabile in cui metto la misura del pin analogico a cui è connessa la batteria
-const float PartitorFactor = 2.76;       // valore che moltièlicato per la tensione misurata dal pin analogico mi da il valore sul partitore di tensione: Uguale al rapporto (R1+R2)/R1  dove R1 è la resistenza collegata a GND e R2 è la resistenza collegata a +12
+const float PartitorFactor =  1.39;       // valore che moltièlicato per la tensione misurata dal pin analogico mi da il valore sul partitore di tensione: Uguale al rapporto (R1+R2)/R1  dove R1 è la resistenza collegata a GND e R2 è la resistenza collegata a +12
 const float SogliaBatt = 3.6;           // limite di Volt a cui non faccio più funzionare niente.
-const float Vdelta = 0.31;               // la differenza tra il voltaggio vero della batteria e il voltaggio misurato sui due punti in cui misura l'arduino. 
+const float Vdelta = 0;               // la differenza tra il voltaggio vero della batteria e il voltaggio misurato sui due punti in cui misura l'arduino. 
 
 //dichiarazione variabili per ACCENSIONE
 unsigned long Eeprom_Init;                    // variabile per verificare se la eeprom è stata correttamente inizializzata
