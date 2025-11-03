@@ -2,11 +2,11 @@
 authors: Pietro Mascherpa, Fabio Brandalese, Roberto Garza 
 contact: roberto.garza@uni-konstanz.de
 copyright: CC BY-NC-SA 4.0
-date current version: 2024.09.15 (YYYY/MM/DD)
+date current version: 2025.11.03 (YYYY/MM/DD)
 backend: ThingSpeak
+Hardwere: 3DM 2025.06 SmartWT v2
 
-This code is the firmware used in Mascherpa et al. 2025 (DOI: ).
-Check the paper for instructions about the hardware component of the system.
+Check the TechAP instructions book for iformation about the hardware component of the system.
 */
 
 #include "SIM900.h"
@@ -16,8 +16,8 @@ Check the paper for instructions about the hardware component of the system.
 #include <String.h>
 #include <EEPROM.h>
 
-#define PING_PIN 4                               // ultrasound emitter
-#define ECHO_PIN 3                               // ultrasound receiver
+#define PING_PIN 3                               // ultrasound emitter
+#define ECHO_PIN 4                               // ultrasound receiver
 #define TIMER_PIN 6                              // stand-by timer
 #define GSM_SHIELD_PIN 9                         // switch for GSM shield
 #define BATT_PIN A7                              // analogPin for the measure of the battery tension
@@ -62,20 +62,20 @@ boolean started = false;
 float delay_sensor;                        // time needed for the signal to reach detector
 const int number_repetitions = 10;                  // number of measures to median to get a single value to store
 float distance_array[number_repetitions];          // number_repetitions elements array containing single measures
-const int speed_sound_air = 331.45;    // speed of sound in the air [m/s]
+const int speed_sound_air = 343;    // speed of sound in the air at 24C° [m/s]
 const int max_distance = 450;       // maximum distance recorded reliably by the sensor
 float single_distance;              // single measure [cm]
 float distance_median;              // median measure [cm]
 float distance;                     // median distance corrected and ready to send [cm]
 const float height_zero = 0;       // height of the detector from the ground
 float measure_offset = 2.29;         // measuring measure_offset of the sensor | TODO-USER: set as distance between the surface of the sensor and the edge of the box (Fig. 1)
-float correction_factor = 1.028;   // correct for distance of the target from sensor (decrease measure by 3,06%)
+float correction_factor = 1.028;   // correct for distance of the target from sensor (increase measure by 2,8%)
 
 //dichiarazione variabili CONTROLLO TENSIONE
-float Volt;                     // variabile per monitorare la Volt della batteria
+float Volt;                         // variabile per monitorare la Volt della batteria
 int AnalogBatt;                     // variabile in cui metto la misura del pin analogico a cui è connessa la batteria
 const float PartitorFactor = 2.76;       // valore che moltièlicato per la tensione misurata dal pin analogico mi da il valore sul partitore di tensione: Uguale al rapporto (R1+R2)/R1  dove R1 è la resistenza collegata a GND e R2 è la resistenza collegata a +12
-const float SogliaBatt = 0;           // limite di Volt a cui non faccio più funzionare niente.
+const float SogliaBatt = 3.6;           // limite di Volt a cui non faccio più funzionare niente.
 const float Vdelta = 0.31;               // la differenza tra il voltaggio vero della batteria e il voltaggio misurato sui due punti in cui misura l'arduino. 
 
 //dichiarazione variabili per ACCENSIONE
@@ -85,8 +85,8 @@ unsigned long EepromRead;                     // variabile in cui memorizzo il v
 unsigned long LastEepromSend;                 // variabile in cui memorizzo il valore della Eeprom all'ultimo invio
 int EepromNumber;                             // variabile dove calcolo la differenza tra il valore Eeprom e il valore della Eeprom all'ultimo invio
 float Eeprom_distance;                        // variabile in cui memorizzo l'ultimo valore letto dal sensore DEVO USARE PUT E GET PER DATI SOPRA I 2 BYTE
-//18 con resistenza da 5 min significa 1.5 ore 
-int EepromStart = 18;              // qui metto il numero di accensioni raggiunte le quali voglio che faccia l'invio
+//12 con resistenza da 5 min significa 1 ore 
+int EepromStart = 24;              // qui metto il numero di accensioni massime raggiunte le quali voglio che faccia l'invio
 const float Tolerance = 2 ;        //costante che mi dice la Tolerance da dare alla misura perchè venga considerata diversa dalla precedente
 float abs_distance;                //questo serve per le condizioni che verificano se il valore letto è uguale a quello precedente. il valore assoluto serve perchè per i valori negativi, i risultati dell'if diventano opposti
 
