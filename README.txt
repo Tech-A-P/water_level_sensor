@@ -1,0 +1,1 @@
+QUi abbiamo il programma in cui misuriamo anche la temperatura, in particolare confrontiamo ciò che è misurato dal termometro DS1820 con il termometro interno di arduino, per testare se i risultati sono comparabili. 
