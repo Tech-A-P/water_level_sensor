@@ -227,8 +227,19 @@ void loop() {
 
     //send data
     if (sendMQTT(distance)) {
-      Serial.println(F("Correct Send!"));
-      sent = true;
+        Serial.println(F("Data correctly sent, update the EEPROM value and go off."));   
+        //Change status of sent variable
+        sent = true;
+        // write zero the number of accension because you send data
+        SwitchCounter = 0; 
+        // Update the LastDistanceSend with the last measure token
+        LastDistanceSend = abs_distance;
+        //write this two variable in a new record in EEPROM (the position is know by the program)
+        SaveState();
+        //for be sure that system don't goes off too fast
+        delay(15);
+        //SmartWT off, don't delete. Is here for simplyfy the program read
+        standBy();
     } else {
       Serial.println(F("Mqtt send Fail"));
     }
