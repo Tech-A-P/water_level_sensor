@@ -63,14 +63,14 @@ const char user[] = "";
 const char pass[] = "";
 
 //se sono attivi i protocolli TLS connesione impossibile 
-const char mqtt_server[] = "spiga.resiot.net";
-const int  mqtt_port = 61110;
-const char mqtt_client_id[] = "SPIGA";
-const char mqtt_user[] = "resiot";
-const char mqtt_pass[] = "8lmAHL90MyRx";
+const char mqtt_server[] = "YOUR_SERVER";
+const int  mqtt_port = YOUR_PORT;
+const char mqtt_client_id[] = "YOUR_ID";
+const char mqtt_user[] = "YOUR_USER";
+const char mqtt_pass[] = "PASSWORD";
 
 // topic RESIOT
-const char topic[] = "SPIGA_000_ARDU";
+const char topic[] = "NAME_OF_TOPIC";
 
 //for modify the data send go in funtion send (search: "payload")
 
