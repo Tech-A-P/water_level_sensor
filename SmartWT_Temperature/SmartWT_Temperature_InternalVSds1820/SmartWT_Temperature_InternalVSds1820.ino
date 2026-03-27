@@ -2,7 +2,7 @@
 authors: Pietro Mascherpa, Fabio Brandalese, Roberto Garza 
 contact: roberto.garza@uni-konstanz.de
 copyright: CC BY-NC-SA 4.0
-date current version: 2026.02.03 (YYYY/MM/DD)
+date current version: 2026.03.26 (YYYY/MM/DD)
 backend: ThingSpeak
 Hardwere: 3DM 2025.06 SmartWT v2
 
@@ -32,7 +32,7 @@ Check the TechAP instructions book for information about the hardware component 
 float delay_sensor;                                // time needed for the signal to reach detector
 const int number_repetitions = 10;                 // number of measures to median to get a single value to store
 float distance_array[number_repetitions];          // number_repetitions elements array containing single measures
-const int speed_sound_air = 343;                   // speed of sound in the air at 24C° [m/s]
+int speed_sound_air = 343;                         // speed of sound in the air at 24C° [m/s] this is used only if temerature sensor is broke, otherwise speed of sound is calculated
 const int max_distance = 450;                      // maximum distance recorded reliably by the sensor
 float single_distance;                             // single measure [cm]
 float distance_median;                             // median measure [cm]
@@ -54,7 +54,7 @@ DallasTemperature sensors(&oneWire);
 //Variabile in cui memorizzo il valore di temperatura
 float Temperature;                     //temperatura dell'aria
 float ARDUtemp;
-float rawavg = 0;   // variabile dove metto il valore raw di temperayura solo per calibra 
+float rawavg = 0;                      // variabile dove metto il valore raw di temperayura solo per calibra 
 
 // proptotipe function for compile
 float readInternalTemp_NanoEvery(uint16_t samples, float &rawavg);
@@ -176,7 +176,7 @@ sensors.setWaitForConversion(true); // wiat until connection is closed
   pinMode(ECHO_PIN, INPUT);
 
   // Get the measure
-  distance = getMeasure();
+  distance = getMeasureTEMP();
   // absolute value of distance for logic comparison
   abs_distance = fabs(distance);
   Serial.print(F("Number of attemps:"));
@@ -434,7 +434,13 @@ void sendData() {
 }
 
 // function for make the measurment, give distance as result
-float getMeasure() {
+float getMeasureTEMP() {
+  //simple check if temperature sensor is not corrupted
+  if(!isnan(Temperature) && Temperature > -30 && Temperature < 50){
+    speed_sound_air = 331.3 + 0.606 * Temperature;
+  }
+  //otherwise use standard temperature at 24 C°
+
   for (int j = 0; j < number_repetitions; j++) {
     digitalWrite(PING_PIN, LOW);
     //dont touch this delays are important for clean measure
