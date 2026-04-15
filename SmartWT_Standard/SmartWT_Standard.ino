@@ -117,6 +117,7 @@ int lastValidIndex = -1;
 //*************************************************************
 //TIMER AND NUMBER OF ACCENSION
 #define TIMER_PIN 6                              // stand-by timer
+pinMode(TIMER_PIN, OUTPUT);                      // necessary for make run the previus define
 // 12 con resistenza da 5 min significa 1 ore 
 int EepromStart = 12;                              // qui metto il numero di accensioni massime raggiunte le quali voglio che faccia l'invio
 const float Tolerance = 10 ;                       // costante che mi dice la Tolerance da dare alla misura perchè venga considerata diversa dalla precedente
