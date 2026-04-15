@@ -127,6 +127,9 @@ void setup() {
 // Serial monitor inzialization
  Serial.begin(9600);
 
+//Set pin for swich off
+pinMode(TIMER_PIN, OUTPUT);
+
 // ***************************************************
 // CHECK BATTERY TENSION
  if (!checkBatteryTension()){
@@ -231,10 +234,11 @@ void loop()
 
 // function for swich off SmartWT
 void standBy() {
-  pinMode(TIMER_PIN, OUTPUT);                     // necessary for make run the next command
+  digitalWrite(GSM_SHIELD_PIN, LOW);              // switch GSM off
+   delay(1000);
   digitalWrite(TIMER_PIN, HIGH);                  // switch timer off
   Serial.println(F("System in stand by"));
-  delay(3000);
+   delay(100);
 }
 
 // function for check the battery tension. Return TRUE if battery is over the tension limit , FALSE if the battery is down. AnIntervalValued calculate the battery tension
