@@ -162,7 +162,7 @@ void setup() {
   // debug on serial monitor
   Serial.print(F("Reach the number of accension for start? (0 if true) ")); 
   Serial.println(accensioniOK);
-  Serial.print(F("The masure is change significantly for the last measure? (0 if true) ")); 
+  Serial.print(F("The masure is change significantly from the last measure? (0 if true) ")); 
   Serial.println(misuraOK);
 
   // Check if both the condition are true (OFF the SmartWT) if only one is false is the  time to send
